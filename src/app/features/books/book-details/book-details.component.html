@@ -1,0 +1,13 @@
+<div class="details-container" *ngIf="!loading && !error && book">
+  <h2>{{ book.title }}</h2>
+  <p><strong>Auteur :</strong> {{ book.author }}</p>
+  <p><strong>Catégorie :</strong> {{ book.category }}</p>
+  <p><strong>Année :</strong> {{ book.publishedYear }}</p>
+  <p><strong>Disponible :</strong> {{ book.available ? 'Oui' : 'Non' }}</p>
+  <p><strong>Note :</strong> {{ book.rating }}/5</p>
+
+  <button (click)="back()">Retour</button>
+</div>
+
+<p *ngIf="loading">Chargement...</p>
+<p *ngIf="error">{{ error }}</p>

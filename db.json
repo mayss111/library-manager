@@ -1,0 +1,22 @@
+{
+  "books": [
+    {
+      "id": 1,
+      "title": "Clean Code",
+      "author": "Robert C. Martin",
+      "category": "Programming",
+      "publishedYear": 2008,
+      "available": true,
+      "rating": 5
+    },
+    {
+      "id": 2,
+      "title": "You Don't Know JS",
+      "author": "Kyle Simpson",
+      "category": "JavaScript",
+      "publishedYear": 2015,
+      "available": false,
+      "rating": 4
+    }
+  ]
+}

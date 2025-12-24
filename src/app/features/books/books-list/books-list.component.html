@@ -1,0 +1,70 @@
+<div class="container">
+  <h2>Liste des livres</h2>
+
+  <div class="toolbar">
+    <button class="btn btn-primary" (click)="goToNew()">Ajouter un livre</button>
+
+    <div class="filters">
+      <input
+        type="text"
+        placeholder="Rechercher par titre ou auteur..."
+        [(ngModel)]="searchTerm"
+        (input)="onFiltersChange()"
+      />
+
+      <select [(ngModel)]="selectedCategory" (change)="onFiltersChange()">
+        <option value="all">Toutes catégories</option>
+        <option *ngFor="let c of categories" [value]="c">{{ c }}</option>
+      </select>
+
+      <select [(ngModel)]="selectedAvailability" (change)="onFiltersChange()">
+        <option value="all">Tous</option>
+        <option value="available">Disponibles</option>
+        <option value="unavailable">Empruntés</option>
+      </select>
+    </div>
+  </div>
+
+  <p *ngIf="loading">Chargement...</p>
+  <p *ngIf="error">{{ error }}</p>
+
+  <p *ngIf="!loading && !error">
+    {{ filteredBooks.length }} livre(s) trouvé(s)
+  </p>
+
+  <table
+    class="styled-table"
+    *ngIf="!loading && !error && filteredBooks.length; else noBooks"
+  >
+    <thead>
+      <tr>
+        <th>Titre</th>
+        <th>Auteur</th>
+        <th>Catégorie</th>
+        <th>Année</th>
+        <th>Dispo.</th>
+        <th>Note</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let b of filteredBooks">
+        <td>{{ b.title }}</td>
+        <td>{{ b.author }}</td>
+        <td>{{ b.category }}</td>
+        <td>{{ b.publishedYear }}</td>
+        <td>{{ b.available ? 'Oui' : 'Non' }}</td>
+        <td>{{ b.rating }}/5</td>
+        <td>
+          <button class="btn btn-secondary" (click)="showDetails(b.id)">Détails</button>
+          <button class="btn btn-warning" (click)="editBook(b.id)">Modifier</button>
+          <button class="btn btn-danger" (click)="deleteBook(b.id)">Supprimer</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+
+  <ng-template #noBooks>
+    <p>Aucun livre ne correspond aux critères.</p>
+  </ng-template>
+</div>

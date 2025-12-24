@@ -1,0 +1,49 @@
+<div class="form-container">
+  <h2 class="form-title">{{ titlePage }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="form-group">
+      <label>Titre :</label>
+      <input type="text" formControlName="title" />
+      <div class="error" *ngIf="form.get('title')?.invalid && form.get('title')?.touched">
+        <span *ngIf="form.get('title')?.hasError('required')">Le titre est requis.</span>
+        <span *ngIf="form.get('title')?.hasError('minlength')">Minimum 3 caractères.</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Auteur :</label>
+      <input type="text" formControlName="author" />
+      <div class="error" *ngIf="form.get('author')?.invalid && form.get('author')?.touched">
+        <span>L'auteur est requis.</span>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label>Catégorie :</label>
+      <input type="text" formControlName="category" />
+    </div>
+
+    <div class="form-group">
+      <label>Année de publication :</label>
+      <input type="number" formControlName="publishedYear" />
+    </div>
+
+    <div class="form-group">
+      <label>Disponible :</label>
+      <input type="checkbox" formControlName="available" />
+    </div>
+
+    <div class="form-group">
+      <label>Note (1 à 5) :</label>
+      <input type="number" formControlName="rating" min="1" max="5" />
+    </div>
+
+    <div class="actions">
+      <button type="button" (click)="cancel()">Annuler</button>
+      <button type="submit" [disabled]="form.invalid">
+        {{ isEditMode ? 'Enregistrer' : 'Créer' }}
+      </button>
+    </div>
+  </form>
+</div>
