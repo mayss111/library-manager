@@ -3,12 +3,13 @@ import { RouterModule, Routes } from '@angular/router';
 import { BooksListComponent } from './books-list/books-list.component';
 import { BookDetailsComponent } from './book-details/book-details.component';
 import { BookFormComponent } from './book-form/book-form.component';
+import { AuthGuard } from '../../core/auth.guard';
 
 const routes: Routes = [
   { path: '', component: BooksListComponent },
-  { path: 'new', component: BookFormComponent },
+  { path: 'new', component: BookFormComponent, canActivate: [AuthGuard] },
+  { path: ':id/edit', component: BookFormComponent ,canActivate: [AuthGuard]},
   { path: ':id', component: BookDetailsComponent },
-  { path: ':id/edit', component: BookFormComponent }
 ];
 
 @NgModule({

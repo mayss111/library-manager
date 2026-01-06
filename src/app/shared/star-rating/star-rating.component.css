@@ -1,0 +1,12 @@
+.stars {
+  color: #d1d5db;
+}
+
+.stars .filled {
+  color: #f59e0b;
+}
+.stars .half-filled {
+  position: relative;
+  display: inline-block;
+  color: #f59e0b;
+}

@@ -32,37 +32,33 @@
     {{ filteredBooks.length }} livre(s) trouvé(s)
   </p>
 
-  <table
-    class="styled-table"
-    *ngIf="!loading && !error && filteredBooks.length; else noBooks"
-  >
-    <thead>
-      <tr>
-        <th>Titre</th>
-        <th>Auteur</th>
-        <th>Catégorie</th>
-        <th>Année</th>
-        <th>Dispo.</th>
-        <th>Note</th>
-        <th>Actions</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr *ngFor="let b of filteredBooks">
-        <td>{{ b.title }}</td>
-        <td>{{ b.author }}</td>
-        <td>{{ b.category }}</td>
-        <td>{{ b.publishedYear }}</td>
-        <td>{{ b.available ? 'Oui' : 'Non' }}</td>
-        <td>{{ b.rating }}/5</td>
-        <td>
-          <button class="btn btn-secondary" (click)="showDetails(b.id)">Détails</button>
-          <button class="btn btn-warning" (click)="editBook(b.id)">Modifier</button>
-          <button class="btn btn-danger" (click)="deleteBook(b.id)">Supprimer</button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
+  <div
+  class="cards-grid"
+  *ngIf="!loading && !error && filteredBooks.length; else noBooks"
+>
+  <div class="book-card" *ngFor="let b of filteredBooks">
+    <div class="book-card-header">
+      <h3>{{ b.title }}</h3>
+      <span class="badge" [class.badge-available]="b.available" [class.badge-unavailable]="!b.available">
+        {{ b.available | available }}
+      </span>
+    </div>
+
+    <p class="author">{{ b.author }}</p>
+    <p class="category">{{ b.category }} • {{ b.publishedYear }}</p>
+
+    <div class="rating">
+      <app-star-rating [rating]="b.rating"></app-star-rating>
+    </div>
+
+    <div class="card-actions">
+      <button class="btn btn-secondary" (click)="showDetails(b.id)">Détails</button>
+      <button class="btn btn-warning" (click)="editBook(b.id)">Modifier</button>
+      <button class="btn btn-danger" (click)="deleteBook(b.id)">Supprimer</button>
+    </div>
+  </div>
+</div>
+
 
   <ng-template #noBooks>
     <p>Aucun livre ne correspond aux critères.</p>
